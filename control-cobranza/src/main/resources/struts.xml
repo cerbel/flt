@@ -1,0 +1,1201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+
+
+
+	<package name="user" extends="struts-default">
+
+
+		<interceptors>
+			<interceptor name="mylogging"
+				class="cl.cstit.msd.ccs.actions.MyLoggingInterceptor" />
+
+			<interceptor-stack name="loggingStack">
+				<interceptor-ref name="mylogging" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="loggingStack"></default-interceptor-ref>
+
+
+		<global-results>
+			<!-- <result name="login">/pages/autenticate/login.jsp</result> -->
+			<result name="login">/pages/autenticate/login.jsp</result>
+		</global-results>
+
+
+		<action name="Login">
+			<result>/login.jsp</result>
+		</action>
+
+
+		<action name="notification">
+			<result></result>
+		</action>
+
+		<action name="notificationToApproveForecast"
+			class="cl.cstit.msd.ccs.actions.NotificationApproveProcessAction"
+			method="notificationToApproveForecast">
+			<result name="SUCCESS">pages/notifications/notificactionToApproveForecast.jsp
+			</result>
+		</action>
+
+		<action name="notificationApproveForecast"
+			class="cl.cstit.msd.ccs.actions.NotificationApproveProcessAction"
+			method="notificationApproveForecast">
+			<result name="SUCCESS">pages/notifications/notificactionApproveForecast.jsp
+			</result>
+		</action>
+
+
+		<action name="notificationRejectForecast"
+			class="cl.cstit.msd.ccs.actions.NotificationApproveProcessAction"
+			method="notificationRejectForecast">
+			<result name="SUCCESS">pages/notifications/notificactionRejectForecast.jsp
+			</result>
+		</action>
+
+
+		<action name="notificationToApproveBudget"
+			class="cl.cstit.msd.ccs.actions.NotificationApproveProcessAction"
+			method="notificationToApproveBudget">
+			<result name="SUCCESS">pages/notifications/notificactionToApproveBudget.jsp
+			</result>
+		</action>
+
+
+		<action name="notificationApproveBudget"
+			class="cl.cstit.msd.ccs.actions.NotificationApproveProcessAction"
+			method="notificationApproveBudget">
+			<result name="SUCCESS">pages/notifications/notificactionApproveBudget.jsp
+			</result>
+		</action>
+
+		<action name="notificationRejectBudget"
+			class="cl.cstit.msd.ccs.actions.NotificationApproveProcessAction"
+			method="notificationRejectBudget">
+			<result name="SUCCESS">pages/notifications/notificactionRejectBudget.jsp
+			</result>
+		</action>
+
+
+		<action name="login" class="cl.cstit.msd.ccs.actions.AutenticationUserAction"
+			method="login">
+
+			<interceptor-ref name="loggingStack"></interceptor-ref>
+
+			<result name="SUCCESS">pages/autenticate/login.jsp</result>
+		</action>
+
+
+		<action name="home" class="cl.cstit.msd.ccs.actions.AutenticationUserAction"
+			method="home">
+			<result name="SUCCESS">pages/home.jsp</result>
+		</action>
+
+		<action name="logout" class="cl.cstit.msd.ccs.actions.AutenticationUserAction"
+			method="logout">
+			<result name="SUCCESS">pages/autenticate/login.jsp</result>
+		</action>
+
+
+		<action name="sites" class="cl.cstit.msd.ccs.actions.AutenticationUserAction"
+			method="sites">
+			<result name="SUCCESS">pages/autenticate/site_select.jsp
+			</result>
+			<!-- <result name="HOME" >home.action</result> -->
+
+			<result type="redirectAction" name="HOME">
+				<param name="actionName">home</param>
+			</result>
+		</action>
+
+
+		<action name="selectMenuAction" class="cl.cstit.msd.ccs.actions.AutenticationUserAction"
+			method="selectMenuAction">
+			<!-- <result name="SUCCESS" >pages/autenticate/login.jsp</result> -->
+		</action>
+
+
+
+
+
+		<!-- ADMIN -->
+
+		<action name="adminMenu">
+			<result>pages/admin/admin_menu.jsp</result>
+		</action>
+
+
+		<!-- Users Admin -->
+
+		<action name="usersAdmin" class="cl.cstit.msd.ccs.actions.AdminUserAction"
+			method="usersAdmin">
+			<result name="SUCCESS">pages/admin/users/find_users.jsp
+			</result>
+		</action>
+
+		<action name="createUser" class="cl.cstit.msd.ccs.actions.AdminUserAction"
+			method="createUser">
+			<result name="SUCCESS">pages/admin/users/create_users.jsp
+			</result>
+		</action>
+
+		<action name="editUser" class="cl.cstit.msd.ccs.actions.AdminUserAction"
+			method="editUser">
+			<result name="SUCCESS">pages/admin/users/edit_users.jsp
+			</result>
+		</action>
+
+
+		<!-- Sites Admin -->
+		<action name="listSites" class="cl.cstit.msd.ccs.actions.AdminSitesAction"
+			method="listSites">
+			<result name="SUCCESS">pages/admin/sites/find_sites.jsp
+			</result>
+		</action>
+
+		<action name="editSite" class="cl.cstit.msd.ccs.actions.AdminSitesAction"
+			method="editSite">
+			<result name="SUCCESS">pages/admin/sites/edit_site.jsp
+			</result>
+		</action>
+
+		<action name="createSite" class="cl.cstit.msd.ccs.actions.AdminSitesAction"
+			method="createSite">
+			<result name="SUCCESS">pages/admin/sites/create_site.jsp
+			</result>
+		</action>
+
+
+		<!-- Stages -->
+
+		<action name="initStages" class="cl.cstit.msd.ccs.actions.StagesHistoryAction"
+			method="initStages">
+			<result name="SUCCESS">pages/stages/find_stages.jsp</result>
+		</action>
+
+
+		<action name="changeStageHistory" class="cl.cstit.msd.ccs.actions.StagesHistoryAction"
+			method="changeStageHistory">
+			<result name="SUCCESS">pages/stages/find_stages.jsp</result>
+		</action>
+
+		<action name="viewStageHistory" class="cl.cstit.msd.ccs.actions.StagesHistoryAction"
+			method="viewStageHistory">
+			<result name="SUCCESS">pages/stages/find_stages.jsp</result>
+		</action>
+
+
+
+
+
+
+		<!-- Import Plan -->
+
+		<action name="showImport"
+			class="cl.cstit.msd.ccs.actions.ImportPlanForecastAction" method="showImport">
+			<result name="SUCCESS">pages/import/load_import.jsp</result>
+		</action>
+		<!-- <action name="downloadExcel" class="cl.cstit.msd.ccs.actions.ImportPlanForecastAction" 
+			method="downloadExcel"> -->
+		<!-- <result name="SUCCESS" >pages/import/load_import.jsp</result> -->
+		<!-- </action> -->
+
+
+
+		<!-- Move Cost -->
+
+		<action name="moveCost" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="moveCost">
+			<result name="SUCCESS">pages/cost/move_cost.jsp</result>
+		</action>
+
+
+		<action name="resultCost" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="resultCost">
+			<result name="SUCCESS">pages/cost/result_cost.jsp</result>
+		</action>
+
+		<action name="changeStage" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="changeStage">
+			<result name="SUCCESS">pages/cost/move_cost.jsp</result>
+		</action>
+
+	</package>
+
+
+
+
+
+
+	<package name="json" extends="json-default">
+
+
+		<interceptors>
+			<interceptor name="mylogging"
+				class="cl.cstit.msd.ccs.actions.MyLoggingInterceptor" />
+
+			<interceptor-stack name="loggingStack">
+				<interceptor-ref name="mylogging" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+
+
+		</interceptors>
+
+		<default-interceptor-ref name="loggingStack"></default-interceptor-ref>
+
+
+		<global-results>
+			<result name="login">/pages/autenticate/login.jsp</result>
+		</global-results>
+
+
+
+
+
+		<!-- Autenticación -->
+		<action name="autenticate" class="cl.cstit.msd.ccs.actions.AutenticationUserAction"
+			method="autenticate">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+
+
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="homeCompareStages" class="cl.cstit.msd.ccs.actions.AutenticationUserAction"
+			method="homeCompareStages">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="homeStandardCompareStages" class="cl.cstit.msd.ccs.actions.AutenticationUserAction"
+			method="homeStandardCompareStages">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="homeSummaryCompareStages" class="cl.cstit.msd.ccs.actions.AutenticationUserAction"
+			method="homeSummaryCompareStages">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+
+
+
+		<!-- Aqui implementacion FLT -->
+
+		<action name="obtieneProveedor" class="cl.cstit.msd.ccs.actions.AdminUserAction"
+			method="obtieneProveedor">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		
+		<!--  modificar -->
+		<action name="obtieneRutProveedor" class="cl.cstit.msd.ccs.actions.AdminUserAction"
+			method="obtieneRutProveedor">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		
+		
+
+		<action name="saveUser" class="cl.cstit.msd.ccs.actions.AdminUserAction"
+			method="saveUser">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		<action name="deleteUser" class="cl.cstit.msd.ccs.actions.AdminUserAction"
+			method="deleteUser">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		<action name="modifyUser" class="cl.cstit.msd.ccs.actions.AdminUserAction"
+			method="modifyUser">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="listUser" class="cl.cstit.msd.ccs.actions.AdminUserAction"
+			method="listUser">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<!-- Move Cost -->
+
+		<action name="initSimulate" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="initSimulate">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="initItemMaster" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="initItemMaster">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="simulateStage" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="simulateStage">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="itemMasterUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="itemMasterUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="importUnitUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="importUnitUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="freightOthersUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="freightOthersUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="freightFlyUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="freightFlyUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="freightFlyRangeUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="freightFlyRangeUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="setupMacrovarUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="setupMacrovarUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="setupExchangeUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="setupExchangeUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="setupCustomDutiesUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="setupCustomDutiesUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="setupCustomDutiesHeadUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="setupCustomDutiesHeadUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="setupOpeManageUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="setupOpeManageUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="setupOpeConsolidationUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="setupOpeConsolidationUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="setupTempStorageUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="setupTempStorageUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="setupGetTempStorageRange" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="setupGetTempStorageRange">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="setupLocalRangeUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="setupLocalRangeUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="initFreightAir" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="initFreightAir">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="initFreightOthers" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="initFreightOthers">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="obtieneFreightOthers" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="obtieneFreightOthers">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="obtieneOperativeManageConsolidation" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="obtieneOperativeManageConsolidation">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="obtieneOpeConsolidation" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="obtieneOpeConsolidation">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="initSetupMacroExchange" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="initSetupMacroExchange">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="initSetupCustomDuties" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="initSetupCustomDuties">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="initSetupOpConsolidation" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="initSetupOpConsolidation">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="initImportUnit" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="initImportUnit">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="initSetupTempStorage" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="initSetupTempStorage">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="initSetupLocalTransport" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="initSetupLocalTransport">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="setupLocalTransportUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="setupLocalTransportUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="setupGetLocalTransportRange" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="setupGetLocalTransportRange">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="setupLocalTransportRangeUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="setupLocalTransportRangeUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="filtros" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="filtros">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteFilterCustomDuty" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteFilterCustomDuty">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="filterUno" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="filterUno">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicar" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicar">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="remove" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="remove">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="replicateFreight" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateFreight">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteFreightRoute" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteFreightRoute">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="initCustodySetup" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="initCustodySetup">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="updateBaseLineCustody" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="updateBaseLineCustody">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="updateFeeCostCustody" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="updateFeeCostCustody">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+
+
+
+
+
+
+		<!--Resultado del costo -->
+		<action name="initMonthlyData" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="initMonthlyData">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="initSummary" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="initSummary">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="initProductivity" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="initProductivity">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="obtieneIdStatusStageBase" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="obtieneIdStatusStageBase">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="obtieneIdStatusStageNew" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="obtieneIdStatusStageNew">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="applyFilterProduct" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="applyFilterProduct">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="updateStageApproveForecast" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="updateStageApproveForecast">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="updateStageRejectForecast" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="updateStageRejectForecast">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="updateStageToApproveForecast" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="updateStageToApproveForecast">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="updateStageForecast" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="updateStageForecast">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="updateStageBudget" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="updateStageBudget">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="updateStageRejectBudget" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="updateStageRejectBudget">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="updateStageApproveBudget" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="updateStageApproveBudget">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="updateStageToApproveBudget" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="updateStageToApproveBudget">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="initStandarDetail" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="initStandarDetail">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="initImpactAnalisysStage" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="initImpactAnalisysStage">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="exportExcelResult" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="exportExcelResult">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">${contentDisposition}</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+
+
+		<action name="insertCommentStage" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="insertCommentStage">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="listCommentStage" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="listCommentStage">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+
+		<!--import -->
+		<action name="uploadExcel"
+			class="cl.cstit.msd.ccs.actions.ImportPlanForecastAction" method="uploadExcel">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+
+		<action name="downloadExcel"
+			class="cl.cstit.msd.ccs.actions.ImportPlanForecastAction" method="downloadExcel">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">${contentDisposition}</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+
+		<action name="getLastUpload"
+			class="cl.cstit.msd.ccs.actions.ImportPlanForecastAction" method="getLastUpload">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+
+		<!-- Stages History -->
+		<!-- flt jc -->
+		<!-- <action name="listStages" class="cl.cstit.msd.ccs.actions.StagesHistoryAction" 
+			method="listStages"> <result type="json"> <param name="excludeNullProperties">true</param> 
+			</result> </action> -->
+
+		<action name="cambiaEstado" class="cl.cstit.msd.ccs.actions.StagesHistoryAction"
+			method="cambiaEstado">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="listStages" class="cl.cstit.msd.ccs.actions.StagesHistoryAction"
+			method="listStages">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteStage" class="cl.cstit.msd.ccs.actions.StagesHistoryAction"
+			method="deleteStage">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+
+		<action name="registerSite" class="cl.cstit.msd.ccs.actions.AdminSitesAction"
+			method="registerSite">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="saveSite" class="cl.cstit.msd.ccs.actions.AdminSitesAction"
+			method="saveSite">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="listRangeFreight" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="listRangeFreight">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateRangeFraightAir" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateRangeFraightAir">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteRangeFraightAir" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteRangeFraightAir">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="listConceptOtherFreight" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="listConceptOtherFreight">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="updateConceptOtherFreight" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="updateConceptOtherFreight">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateConceptOtherFreight" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateConceptOtherFreight">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteConceptOtherFreight" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteConceptOtherFreight">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateOtherFreight" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateOtherFreight">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteOtherFreight" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteOtherFreight">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="listRateWarehouse" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="listRateWarehouse">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="listRangeWarehouse" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="listRangeWarehouse">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="listConceptCostWarehouse" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="listConceptCostWarehouse">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="listRoutesLocalTransport" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="listRoutesLocalTransport">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="listRangesLocalTransport" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="listRangesLocalTransport">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="listConceptCostLocalTransport" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="listConceptCostLocalTransport">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="updateRatesWareHouse" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="updateRatesWareHouse">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="updateRangesWareHouse" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="updateRangesWareHouse">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="updateRoutesLocalTransport" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="updateRoutesLocalTransport">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="updateRangesLocalTransport" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="updateRangesLocalTransport">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateOperativeActivities" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateOperativeActivities">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteOperativeActivities" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteOperativeActivities">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateRateWarehouse" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateRateWarehouse">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteRateWarehouse" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteRateWarehouse">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateRangeWarehouse" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateRangeWarehouse">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteRangeWarehouse" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteRangeWarehouse">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="listAPOFreights" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="listAPOFreights">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="listConceptCostApoFreight" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="listConceptCostApoFreight">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateConceptCostWarehouse" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateConceptCostWarehouse">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteConceptCostWarehouse" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteConceptCostWarehouse">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateRouteLocalTransport" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateRouteLocalTransport">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteRouteLocalTransport" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteRouteLocalTransport">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateRangeLocalTransport" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateRangeLocalTransport">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteRangeLocalTransport" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteRangeLocalTransport">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateConceptCostLocalTransport" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateConceptCostLocalTransport">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteConceptCostLocalTransport" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteConceptCostLocalTransport">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="freightAPOUpdateAttributes" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="freightAPOUpdateAttributes">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateAPOFreight" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateAPOFreight">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+		<action name="deleteAPOFreight" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteAPOFreight">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateAPOFreightRate" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateAPOFreightRate">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteAPOFreightRate" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteAPOFreightRate">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="updateConceptAPOFreight" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="updateConceptAPOFreight">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateExchangeCurrency" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateExchangeCurrency">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteExchangeCurrency" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteExchangeCurrency">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="replicateLocalDuty" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="replicateLocalDuty">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+		<action name="deleteLocalDuty" class="cl.cstit.msd.ccs.actions.MoveCostAction"
+			method="deleteLocalDuty">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+
+		<action name="initUnitCostProduct" class="cl.cstit.msd.ccs.actions.ResultCostAction"
+			method="initUnitCostProduct">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+
+
+
+
+
+	</package>
+
+
+</struts>
